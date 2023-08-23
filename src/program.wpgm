@@ -1,0 +1,57 @@
+import wollok.game.*
+import autos.*
+
+program miPrimerWollokGame {
+	game.width(14)
+	game.height(8)
+	
+	game.boardGround("empedrado.jpg")
+	
+	unAuto.position (
+		game.at(
+			0.randomUpTo(game.width()).truncate(0),
+			0.randomUpTo(game.height()).truncate(0)
+		)
+	)
+	
+	otroAuto.position (
+		game.at(
+			0.randomUpTo(game.width()).truncate(0),
+			0.randomUpTo(game.height()).truncate(0)
+		)
+	)
+	
+	game.addVisual(unAuto)
+	game.addVisual(otroAuto)
+	
+	keyboard.up().onPressDo( {
+		unAuto.arriba()
+	})
+	keyboard.down().onPressDo( {
+		unAuto.abajo()
+	})
+	keyboard.right().onPressDo( {
+		unAuto.derecha()
+	})
+	keyboard.left().onPressDo( {
+		unAuto.izquierda()
+	})
+	
+	
+	keyboard.a().onPressDo( {
+		unAuto.image("autitoAzul.png")
+	})
+	keyboard.r().onPressDo( {
+		unAuto.image("autitoRojo.png")
+	})
+	keyboard.v().onPressDo( {
+		unAuto.image("autitoVerde.png")
+	})
+	
+	
+	//game.whenCollideDo(otroAuto, unAuto.chocar)
+	
+	game.onTick(2000, "respawnear", { otroAuto.posicionAlAzar() })
+	
+	game.start()
+}
